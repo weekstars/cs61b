@@ -22,6 +22,13 @@ public class ArrayDeque<T> {
         nextlast = size;
     }
 
+    private int minusOne(int index){
+        if (index == 0){
+            return items.length - 1; 
+        }
+        return index - 1;
+    }
+
 
     public void addLast(T x){
         if (size == items.length){
@@ -38,8 +45,7 @@ public class ArrayDeque<T> {
             resize(size * RFACTOR);
         }
         items[nextfirst] = x;
-        nextfirst -= 1;
-        nextfirst %= items.length;
+        nextfirst = minusOne(nextfirst);
         size += 1;
     }
 
@@ -79,9 +85,8 @@ public class ArrayDeque<T> {
                 resize(items.length / 2);
             }
             size -= 1;
-            T t = items[(nextlast - 1) % items.length];
-            nextlast -= 1;
-            nextlast %= items.length;
+            T t = items[minusOne(nextlast)];
+            nextlast = minusOne(nextlast);
             return t;
         }
     }
