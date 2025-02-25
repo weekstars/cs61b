@@ -94,7 +94,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-       return items[(index - 1) % items.length];
+       return items[((nextfirst + 1) % items.length + index) % items.length];
     }
     
 }
