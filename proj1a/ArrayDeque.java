@@ -58,7 +58,7 @@ public class ArrayDeque<T> {
         if (isEmpty()){
             return null;
         }
-        else{
+        else {
             if (size / items.length < 0.25 && items.length >= 16){
                 resize(items.length / 2);
             }
@@ -74,7 +74,7 @@ public class ArrayDeque<T> {
         if (isEmpty()){
             return null;
         }
-        else{
+        else {
             if (size / items.length < 0.25 && items.length >= 16){
                 resize(items.length / 2);
             }
@@ -94,7 +94,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index) {
-       return items[(nextlast - 1) % items.length];
+       return items[(index - 1) % items.length];
     }
     
 }
