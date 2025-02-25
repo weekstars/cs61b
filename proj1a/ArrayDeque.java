@@ -65,7 +65,7 @@ public class ArrayDeque<T> {
             return null;
         }
         else {
-            if (size / items.length < 0.25 && items.length >= 16){
+            if ((double) size / items.length < 0.25 && items.length >= 16){
                 resize(items.length / 2);
             }
             size -= 1;
