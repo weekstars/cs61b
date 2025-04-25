@@ -17,13 +17,15 @@ public class WorldGenerator {
     static Room[] rooms = new Room[iter + 1];
     static Hallway[] Hallways = new Hallway[iter];
     long SEED;
+    private Random RANDOM;
 
     public WorldGenerator(long s){
         SEED = s;
+        RANDOM = new Random(SEED);
     }
 
 
-    private Random RANDOM = new Random(SEED);
+   
 
 
     public static boolean isRoomConflict(Room r){
@@ -137,23 +139,23 @@ public class WorldGenerator {
         }
     }
     public Hallway NextHallway(Room r){
-        int direction = RandomUtils.uniform(this.RANDOM, 4);
-        int length = RandomUtils.uniform(this.RANDOM,2, MaxHallwayLength);
+        int direction = RandomUtils.uniform(RANDOM, 4);
+        int length = RandomUtils.uniform(RANDOM,2, MaxHallwayLength);
         Position p = null;
         if (direction == 0){
-            int y = RandomUtils.uniform(this.RANDOM, r.p.y + 1, r.p.y + r.h - 1);
+            int y = RandomUtils.uniform(RANDOM, r.p.y + 1, r.p.y + r.h - 1);
             p = new Position(r.p.x + r.w - 1, y);
         }
         if (direction == 1){
-            int x = RandomUtils.uniform(this.RANDOM, r.p.x + 1, r.p.x + r.w - 1);
+            int x = RandomUtils.uniform(RANDOM, r.p.x + 1, r.p.x + r.w - 1);
             p = new Position(x, r.p.y);
         }
         if (direction == 2){
-            int y = RandomUtils.uniform(this.RANDOM, r.p.y + 1, r.p.y + r.h - 1);
+            int y = RandomUtils.uniform(RANDOM, r.p.y + 1, r.p.y + r.h - 1);
             p = new Position(r.p.x, y);
         }
         if (direction == 3){
-            int x = RandomUtils.uniform(this.RANDOM, r.p.x + 1, r.p.x + r.w - 1);
+            int x = RandomUtils.uniform(RANDOM, r.p.x + 1, r.p.x + r.w - 1);
             p = new Position(x, r.p.y + r.h - 1);
         }
         Hallway nextHallway = new Hallway(p, direction, length);
@@ -163,8 +165,8 @@ public class WorldGenerator {
 
     public Room NextRoom(Hallway H){
         Position EndOfHallway = null;
-        int nextw = RandomUtils.uniform(this.RANDOM, 3, MaxRoomSize + 1);
-        int nexth = RandomUtils.uniform(this.RANDOM, 3, MaxRoomSize + 1);
+        int nextw = RandomUtils.uniform(RANDOM, 3, MaxRoomSize + 1);
+        int nexth = RandomUtils.uniform(RANDOM, 3, MaxRoomSize + 1);
         Position nextposition = null;
         if (H.direction == 0){
             EndOfHallway = new Position(H.p.x + H.length - 1, H.p.y);
@@ -172,7 +174,7 @@ public class WorldGenerator {
                 nextposition = new Position(EndOfHallway.x, EndOfHallway.y - 1);
             } 
             else{
-                nextposition = new Position(EndOfHallway.x, RandomUtils.uniform(this.RANDOM, EndOfHallway.y - nexth + 2 , EndOfHallway.y - 1));
+                nextposition = new Position(EndOfHallway.x, RandomUtils.uniform(RANDOM, EndOfHallway.y - nexth + 2 , EndOfHallway.y - 1));
             }
             
 
@@ -183,7 +185,7 @@ public class WorldGenerator {
                 nextposition = new Position(EndOfHallway.x - 1, EndOfHallway.y - nexth + 1);
             } 
             else{
-                nextposition = new Position(RandomUtils.uniform(this.RANDOM, EndOfHallway.x - nextw + 2 , EndOfHallway.x - 1), EndOfHallway.y - nexth + 1);
+                nextposition = new Position(RandomUtils.uniform(RANDOM, EndOfHallway.x - nextw + 2 , EndOfHallway.x - 1), EndOfHallway.y - nexth + 1);
             }
         }
         if (H.direction == 2){
@@ -192,7 +194,7 @@ public class WorldGenerator {
                 nextposition = new Position(EndOfHallway.x - nextw + 1, EndOfHallway.y - 1);
             } 
             else{
-                nextposition = new Position(EndOfHallway.x - nextw + 1, RandomUtils.uniform(this.RANDOM, EndOfHallway.y - nexth + 2 , EndOfHallway.y - 1));
+                nextposition = new Position(EndOfHallway.x - nextw + 1, RandomUtils.uniform(RANDOM, EndOfHallway.y - nexth + 2 , EndOfHallway.y - 1));
             }
         }
         if (H.direction == 3){
@@ -201,7 +203,7 @@ public class WorldGenerator {
                 nextposition = new Position(EndOfHallway.x - 1, EndOfHallway.y);
             } 
             else{
-                nextposition = new Position(RandomUtils.uniform(this.RANDOM, EndOfHallway.x - nextw + 2 , EndOfHallway.x - 1), EndOfHallway.y);
+                nextposition = new Position(RandomUtils.uniform(RANDOM, EndOfHallway.x - nextw + 2 , EndOfHallway.x - 1), EndOfHallway.y);
             }
         }
         Room nextRoom = new Room(nextw, nexth, nextposition);
@@ -213,8 +215,8 @@ public class WorldGenerator {
 
 
     public void drawtest(TETile[][] world){
-        int w = RandomUtils.uniform(this.RANDOM, 3, MaxRoomSize + 1);
-        int h = RandomUtils.uniform(this.RANDOM, 3, MaxRoomSize + 1);
+        int w = RandomUtils.uniform(RANDOM, 3, MaxRoomSize + 1);
+        int h = RandomUtils.uniform(RANDOM, 3, MaxRoomSize + 1);
         Room room0 = new Room(w, h, intialPos);
         rooms[0] = room0;
 
